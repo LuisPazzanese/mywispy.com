@@ -137,9 +137,10 @@ export const en: Translations = {
     footer: 'built with Astro + Three.js',
   },
   notFound: {
-    title: '404',
-    note: 'tip: routes are loaded from src/pages/*.astro',
-    backHome: 'return home',
+    code: '404',
+    heading: 'Page not found',
+    body: "The page you're looking for doesn't exist or has been moved.",
+    backHome: 'Back to home',
     backHomeAria: 'Return to homepage',
   },
 };

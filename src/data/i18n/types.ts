@@ -90,9 +90,9 @@ export interface Translations {
     footer: string;
   };
   notFound: {
-    /** Shown at the top, like a shell command. Not translated. */
-    title: string;
-    note: string;
+    code: string;
+    heading: string;
+    body: string;
     backHome: string;
     backHomeAria: string;
   };

@@ -9,45 +9,26 @@ import { en } from '../data/i18n';
 
   <main class="nf">
     <div class="container nf__inner">
-      <pre class="nf__code" aria-label="Compiler error output"><span class="nf__prompt">$</span> <span class="nf__cmd">make serve</span>
+      <p class="nf__code" aria-hidden="true" data-i18n="notFound.code">{en.notFound.code}</p>
 
-src/router.ts: In function <span class="nf__sym">'resolveRoute'</span>:
-src/router.ts:42:18: <span class="nf__error">error:</span> route <span class="nf__sym">'<span id="nf-path">/unknown-route</span>'</span> undeclared (first use in this function)
-   42 |   return routes[<span class="nf__sym">'<span class="nf-path-mirror">/unknown-route</span>'</span>];
-      |                  <span class="nf__caret">^~~~~~~~~~~~~~~~</span>
-src/router.ts:42:18: <span class="nf__note">note:</span> each undeclared identifier is reported only once
-src/router.ts:42:18: <span class="nf__error">error:</span> HTTP <span class="nf__title" data-i18n="notFound.title">{en.notFound.title}</span> Not Found
-make: *** [serve] Error 404
+      <div class="nf__line" aria-hidden="true"></div>
 
-<span class="nf__hash"># <span data-i18n="notFound.note">{en.notFound.note}</span></span>
-<span class="nf__prompt">$</span> <a class="nf__cd" href="/" aria-label={en.notFound.backHomeAria} data-i18n-aria="notFound.backHomeAria">cd ~<span class="nf__cd-hint">  <span class="nf__hash" data-i18n="notFound.backHome"># {en.notFound.backHome}</span></span></a><span class="nf__caret-blink" aria-hidden="true">_</span></pre>
+      <h1 class="nf__heading" data-i18n="notFound.heading">{en.notFound.heading}</h1>
+
+      <p class="nf__body" data-i18n="notFound.body">{en.notFound.body}</p>
+
+      <a
+        class="nf__btn"
+        href="/"
+        aria-label={en.notFound.backHomeAria}
+        data-i18n-aria="notFound.backHomeAria"
+      >
+        <span class="nf__btn-arrow" aria-hidden="true">←</span>
+        <span data-i18n="notFound.backHome">{en.notFound.backHome}</span>
+      </a>
     </div>
   </main>
 </BaseLayout>
-
-<script>
-  // Inject the actual requested path into the error message. The static 404.html
-  // is served by Cloudflare Pages for any unmatched route, so window.location
-  // reflects what the visitor typed.
-  const path = window.location.pathname;
-  const safe = path.replace(/[<>"'&]/g, (c) =>
-    ({ '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;', '&': '&amp;' })[c]!,
-  );
-  const target = document.getElementById('nf-path');
-  if (target) target.textContent = path;
-  for (const m of document.querySelectorAll<HTMLElement>('.nf-path-mirror')) {
-    m.textContent = path;
-  }
-  // Resize caret underline to match path length, capped so it doesn't overflow
-  const caret = document.querySelector<HTMLElement>('.nf__caret');
-  if (caret) {
-    const n = Math.max(4, Math.min(48, path.length));
-    caret.textContent = '^' + '~'.repeat(n - 1);
-  }
-  // Use `safe` so the linter doesn't complain about unused vars; intentionally
-  // unused otherwise — textContent already escapes everything.
-  void safe;
-</script>
 
 <style>
   .nf {
@@ -55,89 +36,90 @@ make: *** [serve] Error 404
     min-height: 100svh;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 5rem 0;
   }
 
   .nf__inner {
-    width: 100%;
+    text-align: center;
+    max-width: 32rem;
   }
 
   .nf__code {
     font-family: var(--font-mono);
-    font-size: clamp(0.78rem, 1.6vw, 0.95rem);
-    line-height: 1.55;
-    color: var(--fg-muted);
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    overflow-x: auto;
-    white-space: pre;
+    font-size: clamp(5rem, 18vw, 9rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--fg);
     margin: 0;
+    /* Subtle gradient: solid in the middle, fades to the edges */
+    background: linear-gradient(
+      180deg,
+      var(--fg) 0%,
+      var(--fg) 60%,
+      var(--fg-dim) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  .nf__prompt {
-    color: var(--accent);
+  .nf__line {
+    width: 3rem;
+    height: 1px;
+    background: var(--accent-dim);
+    margin: 2rem auto;
   }
 
-  .nf__cmd {
-    color: var(--fg);
-  }
-
-  .nf__error {
-    color: #ff6b6b;
+  .nf__heading {
+    font-family: var(--font-mono);
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
     font-weight: 500;
-  }
-
-  .nf__note {
     color: var(--accent);
-    font-weight: 500;
+    margin: 0 0 1rem;
+    letter-spacing: -0.01em;
   }
 
-  .nf__sym {
+  .nf__body {
+    color: var(--fg-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0 0 2.5rem;
+  }
+
+  .nf__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
     color: var(--fg);
-  }
-
-  .nf__caret {
-    color: #ff6b6b;
-  }
-
-  .nf__title {
-    color: var(--fg);
-    font-weight: 500;
-  }
-
-  .nf__hash {
-    color: var(--fg-dim);
-  }
-
-  .nf__cd {
-    color: var(--accent);
-    border-bottom: 1px solid transparent;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
     text-decoration: none;
-    transition: border-color 120ms var(--ease);
+    transition:
+      color 150ms var(--ease),
+      border-color 150ms var(--ease),
+      background 150ms var(--ease),
+      transform 150ms var(--ease);
   }
 
-  .nf__cd:hover,
-  .nf__cd:focus-visible {
+  .nf__btn:hover,
+  .nf__btn:focus-visible {
     color: var(--accent);
-    border-bottom-color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
   }
 
-  .nf__cd-hint {
-    color: var(--fg-dim);
+  .nf__btn-arrow {
+    transition: transform 150ms var(--ease);
   }
 
-  .nf__caret-blink {
-    display: inline-block;
-    margin-left: 4px;
-    color: var(--accent);
-    animation: nf-blink 1.1s steps(1) infinite;
-  }
-
-  @keyframes nf-blink {
-    50% {
-      opacity: 0;
-    }
+  .nf__btn:hover .nf__btn-arrow,
+  .nf__btn:focus-visible .nf__btn-arrow {
+    transform: translateX(-3px);
   }
 </style>

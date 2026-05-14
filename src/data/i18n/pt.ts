@@ -141,9 +141,10 @@ export const pt: Translations = {
     footer: 'feito com Astro + Three.js',
   },
   notFound: {
-    title: '404',
-    note: 'dica: as rotas vêm de src/pages/*.astro',
-    backHome: 'voltar para casa',
+    code: '404',
+    heading: 'Página não encontrada',
+    body: 'A página que você está procurando não existe ou foi movida.',
+    backHome: 'Voltar ao início',
     backHomeAria: 'Voltar para a página inicial',
   },
 };
