@@ -1,0 +1,115 @@
+---
+import PcbBackground from './PcbBackground.astro';
+---
+
+<header class="hero">
+  <PcbBackground />
+
+  <div class="container hero__inner">
+    <p class="hero__eyebrow">luis@mywispy:~$ whoami</p>
+
+    <h1 class="hero__name">Luis Fernando Pazzanese Pinheiro</h1>
+
+    <p class="hero__title">Computer Engineer</p>
+    <p class="hero__subtitle">
+      <span>Embedded Systems</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>Cybersecurity</span>
+      <span class="dot" aria-hidden="true">·</span>
+      <span>Low-level Programming</span>
+    </p>
+
+    <nav class="hero__links" aria-label="Primary">
+      <a href="https://github.com/LuisPazzanese" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/luis-pazzanese/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:luis@mywispy.com">Email</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    border-top: none;
+    /* Override section spacing inherited from global.css */
+    padding: 6rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__eyebrow::after {
+    content: '_';
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .hero__name {
+    font-family: var(--font-mono);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 500;
+    color: var(--fg);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .hero__title {
+    font-family: var(--font-mono);
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.6rem;
+  }
+
+  .hero__subtitle .dot {
+    color: var(--fg-dim);
+  }
+
+  .hero__links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .hero__links a {
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      min-height: 90vh;
+      padding: 5rem 0 3rem;
+    }
+  }
+</style>

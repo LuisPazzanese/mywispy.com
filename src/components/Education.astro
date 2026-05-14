@@ -1,0 +1,145 @@
+---
+// Education section per CLAUDE.md: Insper degree, international programs, ITA-track prep.
+---
+
+<section id="education" class="reveal" aria-labelledby="education-heading">
+  <div class="container">
+    <h2 id="education-heading">education</h2>
+
+    <div class="edu">
+      <article class="edu__primary">
+        <header class="edu__head">
+          <h3 class="edu__degree">BSc in Computer Engineering</h3>
+          <span class="edu__org">Insper</span>
+          <span class="edu__when">2023 — 2028 · 5th semester</span>
+        </header>
+        <p class="edu__detail">
+          <span class="edu__label">Relevant coursework:</span>
+          Embedded Systems, Computer Architecture, Data Science, Software Design,
+          Agile Development, Calculus I-III, Physics I-III.
+        </p>
+      </article>
+
+      <div class="edu__cols">
+        <article class="edu__item">
+          <h4 class="edu__sub">International Education</h4>
+          <ul>
+            <li>MIT NuVu Program — USA</li>
+            <li>CATS College Cambridge — UK (1 semester of high school)</li>
+            <li>ELS Language Centers — Canada</li>
+          </ul>
+        </article>
+
+        <article class="edu__item">
+          <h4 class="edu__sub">Pre-university</h4>
+          <ul>
+            <li>ITA-track prep course (1 year) — competitive engineering entrance preparation</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .edu {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .edu__primary {
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+  }
+
+  .edu__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .edu__degree {
+    font-size: 1.05rem;
+    color: var(--fg);
+  }
+
+  .edu__org {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+  }
+
+  .edu__when {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--fg-dim);
+    margin-left: auto;
+  }
+
+  .edu__detail {
+    font-size: 0.95rem;
+    color: var(--fg-muted);
+  }
+
+  .edu__label {
+    color: var(--fg);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin-right: 0.25rem;
+  }
+
+  .edu__cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .edu__item {
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .edu__sub {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+  }
+
+  .edu__item ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .edu__item li {
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .edu__item li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent-dim);
+    font-family: var(--font-mono);
+  }
+
+  @media (max-width: 600px) {
+    .edu__when {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

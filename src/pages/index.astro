@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import Projects from '../components/Projects.astro';
+import Writeups from '../components/Writeups.astro';
+import Skills from '../components/Skills.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <Hero />
+
+  <main>
+    <About />
+    <Experience />
+    <Education />
+    <Projects />
+    <Writeups />
+    <Skills />
+    <Contact />
+  </main>
+</BaseLayout>
+
+<style>
+  /* Keyboard-only skip link — visible on focus, otherwise off-screen. */
+  .skip-link {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    background: var(--bg-elev);
+    color: var(--accent);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    z-index: 100;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+  }
+</style>

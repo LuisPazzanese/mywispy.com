@@ -1,0 +1,90 @@
+---
+// Contact section — final block.
+const year = new Date().getFullYear();
+---
+
+<section id="contact" class="reveal" aria-labelledby="contact-heading">
+  <div class="container">
+    <h2 id="contact-heading">contact</h2>
+
+    <dl class="contact">
+      <div>
+        <dt>Email</dt>
+        <dd><a href="mailto:luis@mywispy.com">luis@mywispy.com</a></dd>
+      </div>
+      <div>
+        <dt>LinkedIn</dt>
+        <dd>
+          <a href="https://www.linkedin.com/in/luis-pazzanese/" target="_blank" rel="noopener noreferrer">
+            linkedin.com/in/luis-pazzanese
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt>GitHub</dt>
+        <dd>
+          <a href="https://github.com/LuisPazzanese" target="_blank" rel="noopener noreferrer">
+            github.com/LuisPazzanese
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>São Paulo, Brazil</dd>
+      </div>
+    </dl>
+
+    <footer class="footer">
+      <span>© {year} Luis Pazzanese</span>
+      <span class="footer__sep" aria-hidden="true">·</span>
+      <span>built with Astro + Three.js</span>
+    </footer>
+  </div>
+</section>
+
+<style>
+  .contact {
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .contact > div {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+  }
+
+  .contact dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+  }
+
+  .contact dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+  }
+
+  .footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .footer__sep {
+    color: var(--line-strong);
+  }
+</style>

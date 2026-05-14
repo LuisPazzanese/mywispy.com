@@ -1,0 +1,72 @@
+---
+// Skills section: keyed list, formatted like the CLAUDE.md code block.
+const skills: Array<[string, string]> = [
+  ['Languages', 'Python · C · x86 Assembly · JavaScript'],
+  ['Embedded', 'Raspberry Pi Pico 2 (RP2350) · FreeRTOS · bare-metal ARM'],
+  ['Protocols', 'I2C · SPI · UART · GPIO · ADC · PWM'],
+  ['Web', 'React · HTML · CSS'],
+  ['Tools', 'GDB · Git · Linux · Wireshark · VirtualBox · Streamlit'],
+  ['Security', 'CTF competitions · Web exploitation · Penetration testing'],
+  ['Spoken', 'Portuguese (native) · English (advanced)'],
+];
+---
+
+<section id="skills" class="reveal" aria-labelledby="skills-heading">
+  <div class="container">
+    <h2 id="skills-heading">skills</h2>
+
+    <dl class="skills">
+      {
+        skills.map(([k, v]) => (
+          <div class="skills__row">
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .skills {
+    margin: 2rem 0 0;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    overflow-x: auto;
+  }
+
+  .skills__row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    padding: 0.35rem 0;
+  }
+
+  .skills__row dt {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .skills__row dt::after {
+    content: ':';
+    color: var(--fg-dim);
+  }
+
+  .skills__row dd {
+    margin: 0;
+    color: var(--fg);
+  }
+
+  @media (max-width: 520px) {
+    .skills__row {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+      padding: 0.4rem 0;
+    }
+  }
+</style>

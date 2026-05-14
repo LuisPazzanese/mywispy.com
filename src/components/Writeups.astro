@@ -1,0 +1,132 @@
+---
+import { writeups } from '../data/writeups';
+
+const hasWriteups = writeups.length > 0;
+---
+
+<section id="writeups" class="reveal" aria-labelledby="writeups-heading">
+  <div class="container">
+    <h2 id="writeups-heading">ctf writeups</h2>
+
+    <div class="writeups__intro">
+      <p>
+        Rank 2 in <span class="strong">Insper SEC</span> — Insper's cybersecurity
+        club — across internal CTF competitions. Focus areas: web exploitation
+        (SQLi, XSS, SSRF), with some crypto and misc.
+      </p>
+    </div>
+
+    {
+      !hasWriteups && (
+        <div class="writeups__placeholder">
+          <p class="writeups__placeholder-title">Writeups coming soon.</p>
+          <p class="writeups__placeholder-sub">
+            6-7 challenges from past CTFs queued for write-up.
+          </p>
+        </div>
+      )
+    }
+
+    {
+      hasWriteups && (
+        <ul class="writeups__list">
+          {writeups.map((w) => (
+            <li class="writeup">
+              <a class="writeup__card" href={w.href}>
+                <header class="writeup__head">
+                  <span class={`writeup__cat writeup__cat--${w.category}`}>{w.category}</span>
+                  <span class="writeup__event">{w.event}</span>
+                  <span class="writeup__date">{w.date}</span>
+                </header>
+                <h3 class="writeup__title">{w.title}</h3>
+                <p class="writeup__summary">{w.summary}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .writeups__intro {
+    margin-top: 2rem;
+    max-width: 65ch;
+    color: var(--fg-muted);
+  }
+
+  .writeups__intro .strong {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.95em;
+  }
+
+  .writeups__placeholder {
+    margin-top: 2rem;
+    padding: 2rem 1.5rem;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    text-align: center;
+    background: var(--bg-elev);
+  }
+
+  .writeups__placeholder-title {
+    font-family: var(--font-mono);
+    color: var(--fg);
+    margin-bottom: 0.4rem;
+  }
+
+  .writeups__placeholder-sub {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--fg-dim);
+  }
+
+  .writeups__list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .writeup__card {
+    display: block;
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .writeup__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .writeup__cat {
+    padding: 0.15rem 0.4rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    color: var(--accent);
+  }
+
+  .writeup__title {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .writeup__summary {
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+  }
+</style>

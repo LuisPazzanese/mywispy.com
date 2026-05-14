@@ -1,0 +1,38 @@
+---
+// About section: bio + international background. Content per CLAUDE.md.
+---
+
+<section id="about" class="reveal" aria-labelledby="about-heading">
+  <div class="container">
+    <h2 id="about-heading">about</h2>
+
+    <div class="about__grid">
+      <p>
+        Computer Engineering student at <a href="#education">Insper</a> (5th semester,
+        graduating 2028). Focused on embedded systems, cybersecurity, and low-level
+        programming. Experienced in building real-time systems with FreeRTOS on ARM
+        microcontrollers and developing automation tools for the financial industry.
+        Rank 2 in Insper's cybersecurity club (Insper SEC) CTF competitions.
+      </p>
+
+      <p class="about__intl">
+        International background: MIT NuVu Program (USA), CATS College Cambridge (UK),
+        ELS Language Centers (Canada).
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.25rem;
+    max-width: 65ch;
+  }
+
+  .about__intl {
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+  }
+</style>

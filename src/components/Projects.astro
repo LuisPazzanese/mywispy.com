@@ -1,0 +1,196 @@
+---
+import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
+---
+
+<section id="projects" class="reveal" aria-labelledby="projects-heading">
+  <div class="container">
+    <h2 id="projects-heading">projects</h2>
+
+    <div class="projects__group">
+      <h3 class="projects__group-title">
+        Embedded Systems <span class="projects__tag">Raspberry Pi Pico 2 · RP2350</span>
+      </h3>
+
+      <ul class="projects__list">
+        {
+          embeddedProjects.map((p) => (
+            <li class="project">
+              <div class="project__head">
+                {p.repo ? (
+                  <a
+                    class="project__name"
+                    href={`${repoBase}/${p.repo}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {p.name}
+                  </a>
+                ) : (
+                  <span class="project__name project__name--plain">{p.name}</span>
+                )}
+                {p.repo && <span class="project__repo">{p.repo}</span>}
+              </div>
+              <p class="project__desc">{p.description}</p>
+              <ul class="project__stack">
+                {p.stack.map((s) => (
+                  <li>{s}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="projects__group">
+      <h3 class="projects__group-title">Other Projects</h3>
+
+      <ul class="projects__list">
+        {
+          otherProjects.map((p) => (
+            <li class="project">
+              <div class="project__head">
+                {p.repo ? (
+                  <a
+                    class="project__name"
+                    href={`${repoBase}/${p.repo}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {p.name}
+                  </a>
+                ) : (
+                  <span class="project__name project__name--plain">{p.name}</span>
+                )}
+                {p.repo && <span class="project__repo">{p.repo}</span>}
+              </div>
+              <p class="project__desc">{p.description}</p>
+              <ul class="project__stack">
+                {p.stack.map((s) => (
+                  <li>{s}</li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <p class="projects__all">
+      Full repository list:
+      <a href={repoBase} target="_blank" rel="noopener noreferrer">github.com/LuisPazzanese</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .projects__group {
+    margin-top: 2.5rem;
+  }
+
+  .projects__group:first-of-type {
+    margin-top: 2rem;
+  }
+
+  .projects__group-title {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--fg);
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .projects__tag {
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    font-weight: 400;
+  }
+
+  .projects__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .project {
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 150ms var(--ease), transform 150ms var(--ease);
+  }
+
+  .project:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-1px);
+  }
+
+  .project__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.75rem;
+  }
+
+  .project__name {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--fg);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .project__name--plain {
+    border-bottom: none;
+  }
+
+  .project__name:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .project__repo {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+  }
+
+  .project__desc {
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    flex: 1;
+  }
+
+  .project__stack {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .project__stack li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    color: var(--fg-muted);
+    border-radius: 2px;
+  }
+
+  .projects__all {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+  }
+</style>
