@@ -1,28 +1,29 @@
 ---
 import PcbBackground from './PcbBackground.astro';
+import { en } from '../data/i18n';
 ---
 
 <header class="hero">
   <PcbBackground />
 
   <div class="container hero__inner">
-    <p class="hero__eyebrow">luis@mywispy:~$ whoami</p>
+    <p class="hero__eyebrow" data-i18n="hero.eyebrow">{en.hero.eyebrow}</p>
 
     <h1 class="hero__name">Luis Fernando Pazzanese Pinheiro</h1>
 
-    <p class="hero__title">Computer Engineer</p>
+    <p class="hero__title" data-i18n="hero.title">{en.hero.title}</p>
     <p class="hero__subtitle">
-      <span>Embedded Systems</span>
+      <span data-i18n="hero.subtitle.0">{en.hero.subtitle[0]}</span>
       <span class="dot" aria-hidden="true">·</span>
-      <span>Cybersecurity</span>
+      <span data-i18n="hero.subtitle.1">{en.hero.subtitle[1]}</span>
       <span class="dot" aria-hidden="true">·</span>
-      <span>Low-level Programming</span>
+      <span data-i18n="hero.subtitle.2">{en.hero.subtitle[2]}</span>
     </p>
 
-    <nav class="hero__links" aria-label="Primary">
-      <a href="https://github.com/LuisPazzanese" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/luis-pazzanese/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="mailto:luis@mywispy.com">Email</a>
+    <nav class="hero__links" aria-label={en.nav.primary} data-i18n-aria="nav.primary">
+      <a href="https://github.com/LuisPazzanese" target="_blank" rel="noopener noreferrer" data-i18n="hero.linkGithub">{en.hero.linkGithub}</a>
+      <a href="https://www.linkedin.com/in/luis-pazzanese/" target="_blank" rel="noopener noreferrer" data-i18n="hero.linkLinkedin">{en.hero.linkLinkedin}</a>
+      <a href="mailto:luis@mywispy.com" data-i18n="hero.linkEmail">{en.hero.linkEmail}</a>
     </nav>
   </div>
 </header>

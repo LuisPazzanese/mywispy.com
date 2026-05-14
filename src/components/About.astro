@@ -1,24 +1,15 @@
 ---
-// About section: bio + international background. Content per CLAUDE.md.
+import { en } from '../data/i18n';
 ---
 
 <section id="about" class="reveal" aria-labelledby="about-heading">
   <div class="container">
-    <h2 id="about-heading">about</h2>
+    <h2 id="about-heading" data-i18n="sections.about">{en.sections.about}</h2>
 
     <article class="about">
-      <p>
-        Computer Engineering student at <a href="#education">Insper</a> (5th semester,
-        graduating 2028). Focused on embedded systems, cybersecurity, and low-level
-        programming. Experienced in building real-time systems with FreeRTOS on ARM
-        microcontrollers and developing automation tools for the financial industry.
-        Rank 2 in Insper's cybersecurity club (Insper SEC) CTF competitions.
-      </p>
+      <p data-i18n-html="about.body" set:html={en.about.body}></p>
 
-      <p class="about__intl">
-        International background: MIT NuVu Program (USA), CATS College Cambridge (UK),
-        ELS Language Centers (Canada).
-      </p>
+      <p class="about__intl" data-i18n="about.intl">{en.about.intl}</p>
     </article>
   </div>
 </section>

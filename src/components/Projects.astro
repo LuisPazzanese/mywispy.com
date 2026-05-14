@@ -1,14 +1,16 @@
 ---
 import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
+import { en } from '../data/i18n';
 ---
 
 <section id="projects" class="reveal" aria-labelledby="projects-heading">
   <div class="container">
-    <h2 id="projects-heading">projects</h2>
+    <h2 id="projects-heading" data-i18n="sections.projects">{en.sections.projects}</h2>
 
     <div class="projects__group">
       <h3 class="projects__group-title">
-        Embedded Systems <span class="projects__tag">Raspberry Pi Pico 2 · RP2350</span>
+        <span data-i18n="projects.embeddedTitle">{en.projects.embeddedTitle}</span>
+        <span class="projects__tag" data-i18n="projects.embeddedTag">{en.projects.embeddedTag}</span>
       </h3>
 
       <ul class="projects__list">
@@ -30,7 +32,9 @@ import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
                 )}
                 {p.repo && <span class="project__repo">{p.repo}</span>}
               </div>
-              <p class="project__desc">{p.description}</p>
+              <p class="project__desc" data-i18n={`projects.descriptions.${p.descriptionKey}`}>
+                {en.projects.descriptions[p.descriptionKey]}
+              </p>
               <ul class="project__stack">
                 {p.stack.map((s) => (
                   <li>{s}</li>
@@ -43,7 +47,7 @@ import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
     </div>
 
     <div class="projects__group">
-      <h3 class="projects__group-title">Other Projects</h3>
+      <h3 class="projects__group-title" data-i18n="projects.otherTitle">{en.projects.otherTitle}</h3>
 
       <ul class="projects__list">
         {
@@ -64,7 +68,9 @@ import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
                 )}
                 {p.repo && <span class="project__repo">{p.repo}</span>}
               </div>
-              <p class="project__desc">{p.description}</p>
+              <p class="project__desc" data-i18n={`projects.descriptions.${p.descriptionKey}`}>
+                {en.projects.descriptions[p.descriptionKey]}
+              </p>
               <ul class="project__stack">
                 {p.stack.map((s) => (
                   <li>{s}</li>
@@ -77,7 +83,7 @@ import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
     </div>
 
     <p class="projects__all">
-      Full repository list:
+      <span data-i18n="projects.fullRepoList">{en.projects.fullRepoList}</span>
       <a href={repoBase} target="_blank" rel="noopener noreferrer">github.com/LuisPazzanese</a>
     </p>
   </div>
@@ -192,5 +198,8 @@ import { embeddedProjects, otherProjects, repoBase } from '../data/projects';
     font-size: 0.9rem;
     color: var(--fg-muted);
     font-family: var(--font-mono);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 </style>

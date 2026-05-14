@@ -1,0 +1,85 @@
+---
+import { en } from '../data/i18n';
+// Note: aria-label is the EN string at SSR time; the client script updates it
+// on lang change. Server-rendered HTML always starts in EN.
+---
+
+<div
+  class="lang"
+  role="group"
+  aria-label={en.meta.langToggleAria}
+  data-i18n-aria="meta.langToggleAria"
+>
+  <button
+    type="button"
+    class="lang__btn is-active"
+    data-lang="en"
+    aria-pressed="true"
+  >EN</button>
+  <span class="lang__sep" aria-hidden="true">·</span>
+  <button
+    type="button"
+    class="lang__btn"
+    data-lang="pt"
+    aria-pressed="false"
+  >PT</button>
+</div>
+
+<style>
+  .lang {
+    position: fixed;
+    top: 1.25rem;
+    right: var(--pad-x);
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    background: rgba(10, 10, 10, 0.7);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .lang__btn {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: var(--fg-dim);
+    font-family: inherit;
+    font-size: inherit;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color 120ms var(--ease);
+  }
+
+  .lang__btn:hover {
+    color: var(--fg-muted);
+  }
+
+  .lang__btn.is-active {
+    color: var(--accent);
+  }
+
+  .lang__btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .lang__sep {
+    color: var(--line-strong);
+  }
+
+  @media (max-width: 600px) {
+    .lang {
+      top: 0.75rem;
+    }
+  }
+</style>

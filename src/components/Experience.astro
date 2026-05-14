@@ -1,28 +1,22 @@
 ---
-// Experience section: Zagros Capital internship, per CLAUDE.md.
+import { en } from '../data/i18n';
 ---
 
 <section id="experience" class="reveal" aria-labelledby="experience-heading">
   <div class="container">
-    <h2 id="experience-heading">experience</h2>
+    <h2 id="experience-heading" data-i18n="sections.experience">{en.sections.experience}</h2>
 
     <article class="job">
       <header class="job__head">
-        <h3 class="job__role">Intern</h3>
+        <h3 class="job__role" data-i18n="experience.role">{en.experience.role}</h3>
         <span class="job__org">Zagros Capital Asset Management</span>
-        <span class="job__when">Mar 2025 — Sep 2025</span>
+        <span class="job__when" data-i18n="experience.when">{en.experience.when}</span>
       </header>
 
-      <p class="job__about">
-        Zagros Capital is an independent real estate asset manager with R$2B+ AUM,
-        based in São Paulo.
-      </p>
+      <p class="job__about" data-i18n="experience.about">{en.experience.about}</p>
 
       <ul class="job__bullets">
-        <li>Built an automated reporting dashboard using Python and Streamlit for internal fund metrics.</li>
-        <li>Developed Python automation scripts to streamline back office Excel workflows.</li>
-        <li>Structured and processed financial market datasets.</li>
-        <li>Supported portfolio management and internal analysis workflows.</li>
+        {en.experience.bullets.map((b, i) => <li data-i18n={`experience.bullets.${i}`}>{b}</li>)}
       </ul>
     </article>
   </div>

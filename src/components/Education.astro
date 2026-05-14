@@ -1,39 +1,36 @@
 ---
-// Education section per CLAUDE.md: Insper degree, international programs, ITA-track prep.
+import { en } from '../data/i18n';
 ---
 
 <section id="education" class="reveal" aria-labelledby="education-heading">
   <div class="container">
-    <h2 id="education-heading">education</h2>
+    <h2 id="education-heading" data-i18n="sections.education">{en.sections.education}</h2>
 
     <div class="edu">
       <article class="edu__primary">
         <header class="edu__head">
-          <h3 class="edu__degree">BSc in Computer Engineering</h3>
+          <h3 class="edu__degree" data-i18n="education.degree">{en.education.degree}</h3>
           <span class="edu__org">Insper</span>
-          <span class="edu__when">2023 — 2028 · 5th semester</span>
+          <span class="edu__when" data-i18n="education.when">{en.education.when}</span>
         </header>
         <p class="edu__detail">
-          <span class="edu__label">Relevant coursework:</span>
-          Embedded Systems, Computer Architecture, Data Science, Software Design,
-          Agile Development, Calculus I-III, Physics I-III.
+          <span class="edu__label" data-i18n="education.courseworkLabel">{en.education.courseworkLabel}</span>
+          <span data-i18n="education.courseworkBody">{en.education.courseworkBody}</span>
         </p>
       </article>
 
       <div class="edu__cols">
         <article class="edu__item">
-          <h4 class="edu__sub">International Education</h4>
+          <h4 class="edu__sub" data-i18n="education.intlSubheading">{en.education.intlSubheading}</h4>
           <ul>
-            <li>MIT NuVu Program — USA</li>
-            <li>CATS College Cambridge — UK (1 semester of high school)</li>
-            <li>ELS Language Centers — Canada</li>
+            {en.education.intlItems.map((item, i) => <li data-i18n={`education.intlItems.${i}`}>{item}</li>)}
           </ul>
         </article>
 
         <article class="edu__item">
-          <h4 class="edu__sub">Pre-university</h4>
+          <h4 class="edu__sub" data-i18n="education.preUniSubheading">{en.education.preUniSubheading}</h4>
           <ul>
-            <li>ITA-track prep course (1 year) — competitive engineering entrance preparation</li>
+            {en.education.preUniItems.map((item, i) => <li data-i18n={`education.preUniItems.${i}`}>{item}</li>)}
           </ul>
         </article>
       </div>

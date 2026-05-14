@@ -1,28 +1,23 @@
 ---
 import { writeups } from '../data/writeups';
+import { en } from '../data/i18n';
 
 const hasWriteups = writeups.length > 0;
 ---
 
 <section id="writeups" class="reveal" aria-labelledby="writeups-heading">
   <div class="container">
-    <h2 id="writeups-heading">ctf writeups</h2>
+    <h2 id="writeups-heading" data-i18n="sections.writeups">{en.sections.writeups}</h2>
 
     <div class="writeups__intro">
-      <p>
-        Rank 2 in <span class="strong">Insper SEC</span> — Insper's cybersecurity
-        club — across internal CTF competitions. Focus areas: web exploitation
-        (SQLi, XSS, SSRF), with some crypto and misc.
-      </p>
+      <p data-i18n-html="writeups.intro" set:html={en.writeups.intro}></p>
     </div>
 
     {
       !hasWriteups && (
         <div class="writeups__placeholder">
-          <p class="writeups__placeholder-title">Writeups coming soon.</p>
-          <p class="writeups__placeholder-sub">
-            6-7 challenges from past CTFs queued for write-up.
-          </p>
+          <p class="writeups__placeholder-title" data-i18n="writeups.placeholderTitle">{en.writeups.placeholderTitle}</p>
+          <p class="writeups__placeholder-sub" data-i18n="writeups.placeholderSub">{en.writeups.placeholderSub}</p>
         </div>
       )
     }
@@ -56,7 +51,7 @@ const hasWriteups = writeups.length > 0;
     color: var(--fg-muted);
   }
 
-  .writeups__intro .strong {
+  .writeups__intro :global(.strong) {
     color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.95em;

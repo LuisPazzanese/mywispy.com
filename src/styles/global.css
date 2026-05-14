@@ -158,6 +158,13 @@ section:first-of-type {
   transform: none;
 }
 
+/* Language-switch crossfade: SWITCH_MS in i18n-client.ts must match this duration. */
+.lang-switching main,
+.lang-switching .hero__inner {
+  opacity: 0;
+  transition: opacity 180ms var(--ease);
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   *,

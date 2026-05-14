@@ -1,26 +1,28 @@
 ---
-// Skills section: keyed list, formatted like the CLAUDE.md code block.
-const skills: Array<[string, string]> = [
-  ['Languages', 'Python · C · x86 Assembly · JavaScript'],
-  ['Embedded', 'Raspberry Pi Pico 2 (RP2350) · FreeRTOS · bare-metal ARM'],
-  ['Protocols', 'I2C · SPI · UART · GPIO · ADC · PWM'],
-  ['Web', 'React · HTML · CSS'],
-  ['Tools', 'GDB · Git · Linux · Wireshark · VirtualBox · Streamlit'],
-  ['Security', 'CTF competitions · Web exploitation · Penetration testing'],
-  ['Spoken', 'Portuguese (native) · English (advanced)'],
+import { en } from '../data/i18n';
+
+// Order matches CLAUDE.md layout. Key is the i18n path under `skills.<key>`.
+const rows: Array<keyof typeof en.skills> = [
+  'languages',
+  'embedded',
+  'protocols',
+  'web',
+  'tools',
+  'security',
+  'spoken',
 ];
 ---
 
 <section id="skills" class="reveal" aria-labelledby="skills-heading">
   <div class="container">
-    <h2 id="skills-heading">skills</h2>
+    <h2 id="skills-heading" data-i18n="sections.skills">{en.sections.skills}</h2>
 
     <dl class="skills">
       {
-        skills.map(([k, v]) => (
+        rows.map((k) => (
           <div class="skills__row">
-            <dt>{k}</dt>
-            <dd>{v}</dd>
+            <dt data-i18n={`skills.${k}.label`}>{en.skills[k].label}</dt>
+            <dd data-i18n={`skills.${k}.value`}>{en.skills[k].value}</dd>
           </div>
         ))
       }

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LangToggle from '../components/LangToggle.astro';
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
@@ -8,10 +9,13 @@ import Projects from '../components/Projects.astro';
 import Writeups from '../components/Writeups.astro';
 import Skills from '../components/Skills.astro';
 import Contact from '../components/Contact.astro';
+import { en } from '../data/i18n';
 ---
 
 <BaseLayout>
-  <a class="skip-link" href="#about">Skip to content</a>
+  <a class="skip-link" href="#about" data-i18n="meta.skipLink">{en.meta.skipLink}</a>
+
+  <LangToggle />
 
   <Hero />
 

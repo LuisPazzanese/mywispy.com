@@ -1,15 +1,13 @@
 ---
 import '../styles/global.css';
+import { en } from '../data/i18n';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'Luis Pazzanese — Computer Engineer',
-  description = 'Portfolio of Luis Fernando Pazzanese Pinheiro, Computer Engineering student at Insper focused on embedded systems, cybersecurity, and low-level programming.',
-} = Astro.props;
+const { title = en.meta.title, description = en.meta.description } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -23,21 +21,35 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="color-scheme" content="dark" />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <!--
+      Pre-paint lang sync: applies the persisted language to <html lang> before
+      first paint so the static-rendered text matches what the user expects.
+      Text content swaps happen in i18n-client.ts after DOMContentLoaded.
+    -->
+    <script is:inline>
+      (function () {
+        try {
+          var v = localStorage.getItem('mywispy-lang');
+          if (v === 'pt') document.documentElement.lang = 'pt-BR';
+        } catch (_) {}
+      })();
+    </script>
+
+    <title data-i18n="meta.title">{title}</title>
+    <meta name="description" content={description} data-i18n="meta.description" data-i18n-attr="content" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={title} data-i18n="meta.title" data-i18n-attr="content" />
+    <meta property="og:description" content={description} data-i18n="meta.description" data-i18n-attr="content" />
     <meta property="og:site_name" content="mywispy.com" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={title} data-i18n="meta.title" data-i18n-attr="content" />
+    <meta name="twitter:description" content={description} data-i18n="meta.description" data-i18n-attr="content" />
 
     <!-- Favicon: tiny inline SVG with monospace 'w' to match the engineer vibe -->
     <link
@@ -74,6 +86,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
       for (const el of document.querySelectorAll('.reveal')) {
         observer.observe(el);
       }
+    </script>
+
+    <!-- Language toggle client: persists choice, swaps text content, crossfades. -->
+    <script>
+      import '../scripts/i18n-client';
     </script>
   </body>
 </html>

@@ -1,19 +1,20 @@
 ---
-// Contact section — final block.
+import { en } from '../data/i18n';
+
 const year = new Date().getFullYear();
 ---
 
 <section id="contact" class="reveal" aria-labelledby="contact-heading">
   <div class="container">
-    <h2 id="contact-heading">contact</h2>
+    <h2 id="contact-heading" data-i18n="sections.contact">{en.sections.contact}</h2>
 
     <dl class="contact">
       <div>
-        <dt>Email</dt>
+        <dt data-i18n="contact.emailLabel">{en.contact.emailLabel}</dt>
         <dd><a href="mailto:luis@mywispy.com">luis@mywispy.com</a></dd>
       </div>
       <div>
-        <dt>LinkedIn</dt>
+        <dt data-i18n="contact.linkedinLabel">{en.contact.linkedinLabel}</dt>
         <dd>
           <a href="https://www.linkedin.com/in/luis-pazzanese/" target="_blank" rel="noopener noreferrer">
             linkedin.com/in/luis-pazzanese
@@ -21,7 +22,7 @@ const year = new Date().getFullYear();
         </dd>
       </div>
       <div>
-        <dt>GitHub</dt>
+        <dt data-i18n="contact.githubLabel">{en.contact.githubLabel}</dt>
         <dd>
           <a href="https://github.com/LuisPazzanese" target="_blank" rel="noopener noreferrer">
             github.com/LuisPazzanese
@@ -29,15 +30,15 @@ const year = new Date().getFullYear();
         </dd>
       </div>
       <div>
-        <dt>Location</dt>
-        <dd>São Paulo, Brazil</dd>
+        <dt data-i18n="contact.locationLabel">{en.contact.locationLabel}</dt>
+        <dd data-i18n="contact.locationValue">{en.contact.locationValue}</dd>
       </div>
     </dl>
 
     <footer class="footer">
       <span>© {year} Luis Pazzanese</span>
       <span class="footer__sep" aria-hidden="true">·</span>
-      <span>built with Astro + Three.js</span>
+      <span data-i18n="contact.footer">{en.contact.footer}</span>
     </footer>
   </div>
 </section>
