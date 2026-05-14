@@ -21,6 +21,7 @@ export const pt: Translations = {
     linkGithub: 'GitHub',
     linkLinkedin: 'LinkedIn',
     linkEmail: 'Email',
+    linkCV: 'Currículo',
   },
   sections: {
     about: 'sobre',
@@ -138,5 +139,11 @@ export const pt: Translations = {
     locationLabel: 'Localização',
     locationValue: 'São Paulo, Brasil',
     footer: 'feito com Astro + Three.js',
+  },
+  notFound: {
+    title: '404',
+    note: 'dica: as rotas vêm de src/pages/*.astro',
+    backHome: 'voltar para casa',
+    backHomeAria: 'Voltar para a página inicial',
   },
 };

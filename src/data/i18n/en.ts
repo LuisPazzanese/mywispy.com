@@ -18,6 +18,7 @@ export const en: Translations = {
     linkGithub: 'GitHub',
     linkLinkedin: 'LinkedIn',
     linkEmail: 'Email',
+    linkCV: 'Resume',
   },
   sections: {
     about: 'about',
@@ -134,5 +135,11 @@ export const en: Translations = {
     locationLabel: 'Location',
     locationValue: 'São Paulo, Brazil',
     footer: 'built with Astro + Three.js',
+  },
+  notFound: {
+    title: '404',
+    note: 'tip: routes are loaded from src/pages/*.astro',
+    backHome: 'return home',
+    backHomeAria: 'Return to homepage',
   },
 };

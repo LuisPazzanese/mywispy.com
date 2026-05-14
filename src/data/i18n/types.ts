@@ -18,6 +18,7 @@ export interface Translations {
     linkGithub: string;
     linkLinkedin: string;
     linkEmail: string;
+    linkCV: string;
   };
   sections: {
     about: string;
@@ -87,6 +88,13 @@ export interface Translations {
     locationLabel: string;
     locationValue: string;
     footer: string;
+  };
+  notFound: {
+    /** Shown at the top, like a shell command. Not translated. */
+    title: string;
+    note: string;
+    backHome: string;
+    backHomeAria: string;
   };
 }
 
