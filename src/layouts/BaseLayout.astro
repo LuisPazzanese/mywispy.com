@@ -10,6 +10,7 @@ interface Props {
 const { title = en.meta.title, description = en.meta.description } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImage = new URL('/og.png', Astro.site).toString();
 ---
 
 <!doctype html>
@@ -45,11 +46,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     <meta property="og:title" content={title} data-i18n="meta.title" data-i18n-attr="content" />
     <meta property="og:description" content={description} data-i18n="meta.description" data-i18n-attr="content" />
     <meta property="og:site_name" content="mywispy.com" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Luis Pazzanese — Computer Engineer · mywispy.com" />
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} data-i18n="meta.title" data-i18n-attr="content" />
     <meta name="twitter:description" content={description} data-i18n="meta.description" data-i18n-attr="content" />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- Favicon: tiny inline SVG with monospace 'w' to match the engineer vibe -->
     <link
