@@ -6,7 +6,7 @@
   <div class="container">
     <h2 id="about-heading">about</h2>
 
-    <div class="about__grid">
+    <article class="about">
       <p>
         Computer Engineering student at <a href="#education">Insper</a> (5th semester,
         graduating 2028). Focused on embedded systems, cybersecurity, and low-level
@@ -19,16 +19,19 @@
         International background: MIT NuVu Program (USA), CATS College Cambridge (UK),
         ELS Language Centers (Canada).
       </p>
-    </div>
+    </article>
   </div>
 </section>
 
 <style>
-  .about__grid {
+  .about {
     margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
     display: grid;
     gap: 1.25rem;
-    max-width: 65ch;
   }
 
   .about__intl {
