@@ -18,6 +18,7 @@ pnpm-debug.log*
 # editor
 .vscode/
 .idea/
+CLAUDE.md
 
 # OS
 .DS_Store
