@@ -28,6 +28,7 @@ export const pt: Translations = {
     experience: 'experiência',
     education: 'formação',
     projects: 'projetos',
+    demo: 'demo ao vivo',
     writeups: 'writeups de ctf',
     skills: 'habilidades',
     contact: 'contato',
@@ -139,6 +140,19 @@ export const pt: Translations = {
     locationLabel: 'Localização',
     locationValue: 'São Paulo, Brasil',
     footer: 'feito com Astro + Three.js',
+  },
+  demo: {
+    intro:
+      'Filtro de fusão de sensores Madgwick, escrito em C e compilado para WebAssembly. ' +
+      'No celular, a placa gira junto com seu aparelho via DeviceMotion. No desktop, ' +
+      'arraste para girar.',
+    statusInit: 'carregando wasm…',
+    enable: 'toque para ativar os sensores',
+    denied: 'permissão dos sensores negada — tente arrastar.',
+    unsupported: 'sensores indisponíveis — arraste a placa para girar.',
+    hint: 'arraste para girar · usa o IMU do seu celular',
+    credits:
+      'Código C do <a href="https://github.com/LuisPazzanese/pico-mpu-rtos" target="_blank" rel="noopener noreferrer">pico-mpu-rtos</a> · compilado com clang para wasm32',
   },
   notFound: {
     code: '404',

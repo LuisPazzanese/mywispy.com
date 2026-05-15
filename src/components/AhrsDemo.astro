@@ -1,0 +1,194 @@
+---
+import { en } from '../data/i18n';
+---
+
+<section id="demo" class="reveal" aria-labelledby="demo-heading">
+  <div class="container">
+    <h2 id="demo-heading" data-i18n="sections.demo">{en.sections.demo}</h2>
+
+    <p class="demo__intro" data-i18n="demo.intro">{en.demo.intro}</p>
+
+    <div class="demo" data-ahrs-root data-state="init">
+      <div class="demo__stage">
+        <canvas data-ahrs-canvas></canvas>
+
+        <!-- Overlay status messages — only the one matching data-state is visible. -->
+        <div class="demo__overlay" aria-live="polite">
+          <p data-state-text="init" data-i18n="demo.statusInit">{en.demo.statusInit}</p>
+          <p data-state-text="ready" hidden>
+            <button type="button" class="demo__enable" data-ahrs-enable data-i18n="demo.enable">
+              {en.demo.enable}
+            </button>
+          </p>
+          <p data-state-text="running" hidden></p>
+          <p data-state-text="denied" hidden data-i18n="demo.denied">{en.demo.denied}</p>
+          <p data-state-text="unsupported" hidden data-i18n="demo.unsupported">{en.demo.unsupported}</p>
+        </div>
+      </div>
+
+      <div class="demo__meta">
+        <p class="demo__hint" data-i18n="demo.hint">{en.demo.hint}</p>
+        <code class="demo__values" data-ahrs-values aria-hidden="true">q = [ 1.000  0.000  0.000  0.000 ]</code>
+      </div>
+
+      <p class="demo__credits" data-i18n-html="demo.credits" set:html={en.demo.credits}></p>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { startAhrsDemo } from '../scripts/ahrs-demo';
+
+  // Only initialise once the section is on screen — avoids fetching the .wasm
+  // and spinning a WebGL context for visitors who never scroll this far.
+  const root = document.querySelector<HTMLElement>('[data-ahrs-root]');
+  if (root) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          startAhrsDemo(root);
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(root);
+  }
+</script>
+
+<style>
+  .demo {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-elev);
+  }
+
+  .demo__intro {
+    margin-top: 2rem;
+    max-width: 65ch;
+    color: var(--fg-muted);
+  }
+
+  .demo__stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: radial-gradient(ellipse at center, #0d1b16 0%, #0a0a0a 80%);
+    overflow: hidden;
+    touch-action: none; /* don't scroll while dragging the stage */
+    cursor: grab;
+  }
+
+  .demo__stage:active {
+    cursor: grabbing;
+  }
+
+  .demo__stage canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .demo__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .demo__overlay p {
+    margin: 0;
+  }
+
+  .demo__overlay [hidden] {
+    display: none;
+  }
+
+  .demo__overlay button {
+    pointer-events: auto;
+  }
+
+  .demo__enable {
+    appearance: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    background: rgba(10, 10, 10, 0.7);
+    border: 1px solid var(--accent-dim);
+    border-radius: var(--radius);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition:
+      color 150ms var(--ease),
+      border-color 150ms var(--ease),
+      transform 150ms var(--ease);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .demo__enable:hover,
+  .demo__enable:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  /* Hide the overlay entirely while the demo is running. */
+  .demo[data-state='running'] .demo__overlay {
+    opacity: 0;
+    transition: opacity 300ms var(--ease);
+  }
+
+  .demo__meta {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  .demo__hint {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  .demo__values {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+  }
+
+  .demo__credits {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+  }
+
+  .demo__credits :global(a) {
+    color: var(--accent);
+    border-bottom-color: var(--line-strong);
+  }
+
+  @media (max-width: 600px) {
+    .demo__stage {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

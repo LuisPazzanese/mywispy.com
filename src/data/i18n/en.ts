@@ -25,6 +25,7 @@ export const en: Translations = {
     experience: 'experience',
     education: 'education',
     projects: 'projects',
+    demo: 'live demo',
     writeups: 'ctf writeups',
     skills: 'skills',
     contact: 'contact',
@@ -135,6 +136,19 @@ export const en: Translations = {
     locationLabel: 'Location',
     locationValue: 'São Paulo, Brazil',
     footer: 'built with Astro + Three.js',
+  },
+  demo: {
+    intro:
+      'Madgwick sensor-fusion filter, written in C and compiled to WebAssembly. ' +
+      'On mobile, the board rotates with your phone via DeviceMotion. On desktop, ' +
+      'drag to give it a spin.',
+    statusInit: 'loading wasm…',
+    enable: 'tap to enable motion sensors',
+    denied: 'motion sensor permission denied — try drag instead.',
+    unsupported: 'motion sensors unavailable — drag the board to rotate.',
+    hint: 'drag to rotate · uses your phone\'s IMU on mobile',
+    credits:
+      'C source from <a href="https://github.com/LuisPazzanese/pico-mpu-rtos" target="_blank" rel="noopener noreferrer">pico-mpu-rtos</a> · compiled with clang to wasm32',
   },
   notFound: {
     code: '404',

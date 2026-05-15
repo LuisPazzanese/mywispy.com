@@ -25,6 +25,7 @@ export interface Translations {
     experience: string;
     education: string;
     projects: string;
+    demo: string;
     writeups: string;
     skills: string;
     contact: string;
@@ -88,6 +89,16 @@ export interface Translations {
     locationLabel: string;
     locationValue: string;
     footer: string;
+  };
+  demo: {
+    intro: string;
+    statusInit: string;
+    enable: string;
+    denied: string;
+    unsupported: string;
+    hint: string;
+    /** innerHTML — contains <a> link to the pico-mpu-rtos repo. */
+    credits: string;
   };
   notFound: {
     code: string;
