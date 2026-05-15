@@ -5,7 +5,7 @@ import type { Translations } from './types';
 
 export const pt: Translations = {
   meta: {
-    title: 'Luis Pazzanese — Engenheiro de Computação',
+    title: 'Luis Pazzanese — Engenheiro · Embarcados & Cibersegurança',
     description:
       'Portfólio de Luis Fernando Pazzanese Pinheiro, estudante de Engenharia de Computação no Insper, com foco em sistemas embarcados, cibersegurança e programação de baixo nível.',
     skipLink: 'Pular para o conteúdo',

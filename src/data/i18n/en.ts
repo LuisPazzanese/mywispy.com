@@ -2,7 +2,7 @@ import type { Translations } from './types';
 
 export const en: Translations = {
   meta: {
-    title: 'Luis Pazzanese — Computer Engineer',
+    title: 'Luis Pazzanese — Computer Engineer · Embedded & Cybersecurity',
     description:
       'Portfolio of Luis Fernando Pazzanese Pinheiro, Computer Engineering student at Insper focused on embedded systems, cybersecurity, and low-level programming.',
     skipLink: 'Skip to content',

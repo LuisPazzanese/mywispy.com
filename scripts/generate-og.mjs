@@ -78,6 +78,12 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
 
   <!-- url -->
   <text x="80" y="565" font-family="JetBrains Mono, monospace" font-size="22" fill="${FG_DIM}">mywispy.com</text>
+
+  <!-- CTA button (bottom-right) -->
+  <g>
+    <rect x="900" y="510" width="230" height="50" rx="4" fill="none" stroke="${ACCENT_DIM}" stroke-width="1.5"/>
+    <text x="1015" y="542" font-family="JetBrains Mono, monospace" font-size="20" fill="${ACCENT}" text-anchor="middle">View portfolio →</text>
+  </g>
 </svg>`;
 
 mkdirSync(dirname(outPath), { recursive: true });
