@@ -15,7 +15,9 @@ const PROMPT = (level: number, cwd: string) => `visitor@wispy[L${level}]:${cwd}$
 const STORAGE_KEY = 'mywispy-play-state';
 const COUNTER_KEY = 'mywispy-play-count';
 const SOLVED_KEY = 'mywispy-play-solved';
-const STUB_OFFSET = 7; // displayed = stored + offset, to feel like a real backend count
+// TODO(backend): when the Cloudflare Worker + KV is provisioned, the win
+// handler should POST to /api/play/solve and use the returned global count.
+// Until then this is an honest per-device counter — first solver sees #1.
 
 interface StoredProgress {
   highestLevel: number;
@@ -41,17 +43,17 @@ function writeProgress(p: StoredProgress): void {
 }
 
 function recordSolve(): number {
-  // Returns the displayed solver number.
+  // Returns the displayed solver number. Per-device until the backend lands.
   try {
     if (localStorage.getItem(SOLVED_KEY) === 'true') {
-      return (parseInt(localStorage.getItem(COUNTER_KEY) || '0', 10) || 0) + STUB_OFFSET;
+      return parseInt(localStorage.getItem(COUNTER_KEY) || '1', 10) || 1;
     }
     const next = (parseInt(localStorage.getItem(COUNTER_KEY) || '0', 10) || 0) + 1;
     localStorage.setItem(COUNTER_KEY, String(next));
     localStorage.setItem(SOLVED_KEY, 'true');
-    return next + STUB_OFFSET;
+    return next;
   } catch {
-    return STUB_OFFSET + 1;
+    return 1;
   }
 }
 

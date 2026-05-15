@@ -54,7 +54,7 @@
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.75;
     box-shadow: 0 0 50px rgba(126, 231, 199, 0.05);
   }
 
@@ -103,12 +103,18 @@
   }
 
   .term__line {
-    /* no margin between output lines — mimics real terminal density */
-    min-height: 1.5em;
+    min-height: 1.75em;
+    padding: 1px 0;
   }
 
   .term__line--echo {
     color: var(--fg-muted);
+    margin-top: 0.35em;
+  }
+
+  /* The very first echo (no preceding output) doesn't need the gap. */
+  .term__output > .term__line--echo:first-child {
+    margin-top: 0;
   }
 
   .term__prompt-echo {
@@ -120,7 +126,7 @@
     display: flex;
     align-items: baseline;
     flex-wrap: wrap;
-    margin-top: 0.2rem;
+    margin-top: 0.5rem;
     position: relative;
   }
 
