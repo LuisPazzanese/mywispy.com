@@ -63,7 +63,7 @@ async function sendEmail(env: Env, record: SolverRecord): Promise<void> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'wispy <onboarding@resend.dev>',
+      from: 'wispy <noreply@mywispy.com>',
       to: env.NOTIFY_EMAIL,
       subject: `new wispy/play solver — #${record.n}`,
       text,
