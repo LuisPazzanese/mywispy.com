@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Terminal from '../components/Terminal.astro';
+---
+
+<BaseLayout
+  title="/play — wispy CTF"
+  description="A small reverse-engineering CTF. Solve 4 levels to find the recruitment flag."
+>
+  <main class="play">
+    <header class="play__head">
+      <a class="play__back" href="/" aria-label="Back to mywispy.com">← back</a>
+      <p class="play__tagline">
+        a small reverse-engineering ctf · 4 levels · best on desktop
+      </p>
+    </header>
+
+    <Terminal />
+
+    <noscript>
+      <p class="play__noscript">This page needs JavaScript to run the terminal.</p>
+    </noscript>
+
+    <p class="play__mobile">
+      This page is meant to be played on a desktop with a keyboard.
+      Come back from a laptop and have fun.
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  .play {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 3rem var(--pad-x);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .play__head {
+    width: 100%;
+    max-width: 920px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--fg-dim);
+  }
+
+  .play__back {
+    color: var(--fg-muted);
+    border-bottom: 1px solid transparent;
+  }
+
+  .play__back:hover,
+  .play__back:focus-visible {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .play__tagline {
+    margin: 0;
+    color: var(--fg-dim);
+  }
+
+  .play__noscript,
+  .play__mobile {
+    text-align: center;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    max-width: 30rem;
+    margin: 1rem auto 0;
+    line-height: 1.6;
+    display: none;
+  }
+
+  @media (max-width: 720px), (pointer: coarse) {
+    .play__mobile {
+      display: block;
+    }
+  }
+</style>

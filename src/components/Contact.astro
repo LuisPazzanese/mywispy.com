@@ -39,6 +39,8 @@ const year = new Date().getFullYear();
       <span>© {year} Luis Pazzanese</span>
       <span class="footer__sep" aria-hidden="true">·</span>
       <span data-i18n="contact.footer">{en.contact.footer}</span>
+      <span class="footer__sep" aria-hidden="true">·</span>
+      <a class="footer__cursor" href="/play" aria-label="play">▮</a>
     </footer>
   </div>
 </section>
@@ -87,5 +89,25 @@ const year = new Date().getFullYear();
 
   .footer__sep {
     color: var(--line-strong);
+  }
+
+  /* Hidden-in-plain-sight entry point to /play. Looks like a terminal cursor,
+     blinks subtly. People who recognise it know what it means. */
+  .footer__cursor {
+    color: var(--fg-dim);
+    border-bottom: none;
+    animation: footer-blink 1.6s steps(1) infinite;
+    opacity: 0.5;
+    transition: color 200ms var(--ease), opacity 200ms var(--ease);
+  }
+
+  .footer__cursor:hover,
+  .footer__cursor:focus-visible {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  @keyframes footer-blink {
+    50% { opacity: 0.15; }
   }
 </style>

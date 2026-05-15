@@ -1,0 +1,164 @@
+---
+// Custom terminal for /play. The hidden <input> captures keystrokes; the
+// `data-term-live` span mirrors its value so the user sees what they typed
+// alongside the prompt + blinking cursor.
+---
+
+<div class="term" data-term-root>
+  <div class="term__chrome">
+    <span class="term__dot term__dot--r"></span>
+    <span class="term__dot term__dot--y"></span>
+    <span class="term__dot term__dot--g"></span>
+    <span class="term__title">visitor@wispy — /play</span>
+  </div>
+
+  <div class="term__body">
+    <div class="term__output" data-term-output></div>
+
+    <div class="term__inputline">
+      <span class="term__prompt" data-term-prompt>visitor@wispy[L1]:~$&nbsp;</span><span
+        class="term__typed"
+        data-term-live></span><span
+        class="term__cursor"
+        data-term-cursor
+        aria-hidden="true">▮</span>
+      <input
+        class="term__input"
+        data-term-input
+        type="text"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        aria-label="terminal input"
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  import { mountTerminal } from '../scripts/terminal/index';
+
+  const root = document.querySelector<HTMLElement>('[data-term-root]');
+  if (root) mountTerminal(root);
+</script>
+
+<style>
+  .term {
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    background: #0c0f0e;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    box-shadow: 0 0 50px rgba(126, 231, 199, 0.05);
+  }
+
+  .term__chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    background: #14181a;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .term__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .term__dot--r { background: #ff5f57; }
+  .term__dot--y { background: #f1c20a; }
+  .term__dot--g { background: #28c941; }
+
+  .term__title {
+    margin-left: 0.6rem;
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+  }
+
+  .term__body {
+    height: 65vh;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    padding: 0.9rem 1.1rem;
+    color: var(--fg);
+    cursor: text;
+  }
+
+  .term__output {
+    flex: 1;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  .term__line {
+    /* no margin between output lines — mimics real terminal density */
+    min-height: 1.5em;
+  }
+
+  .term__line--echo {
+    color: var(--fg-muted);
+  }
+
+  .term__prompt-echo {
+    color: var(--accent-dim);
+    margin-right: 0;
+  }
+
+  .term__inputline {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    margin-top: 0.2rem;
+    position: relative;
+  }
+
+  .term__prompt {
+    color: var(--accent);
+    white-space: pre;
+  }
+
+  .term__typed {
+    color: var(--fg);
+    white-space: pre;
+  }
+
+  .term__cursor {
+    color: var(--accent);
+    margin-left: 1px;
+    animation: termblink 1s steps(1) infinite;
+  }
+
+  @keyframes termblink {
+    50% { opacity: 0; }
+  }
+
+  /* Visually hidden but focusable — captures keystrokes for the prompt. */
+  .term__input {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Mobile fallback: terminal is hard to use without a keyboard. */
+  @media (max-width: 720px), (pointer: coarse) {
+    .term {
+      display: none;
+    }
+  }
+</style>
