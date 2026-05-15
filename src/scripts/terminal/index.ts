@@ -1,10 +1,4 @@
 // /play terminal driver: wires the prompt, history, input, and command dispatch.
-//
-// Stub counter:
-// TODO(backend): when a Cloudflare Worker + KV is provisioned, POST the win
-// event to /api/play/solve. The Worker validates and returns the real global
-// count. For now we offset a localStorage counter by 7 so the first solver
-// sees "#8" — honest enough as a stub, marked for replacement.
 
 import type { CommandContext, TerminalState } from './types';
 import { COMMANDS } from './commands';
@@ -13,11 +7,13 @@ import { LEVELS, getLevel } from './levels';
 
 const PROMPT = (level: number, cwd: string) => `visitor@wispy[L${level}]:${cwd}$ `;
 const STORAGE_KEY = 'mywispy-play-state';
-const COUNTER_KEY = 'mywispy-play-count';
 const SOLVED_KEY = 'mywispy-play-solved';
-// TODO(backend): when the Cloudflare Worker + KV is provisioned, the win
-// handler should POST to /api/play/solve and use the returned global count.
-// Until then this is an honest per-device counter — first solver sees #1.
+const COUNTER_KEY = 'mywispy-play-count';
+
+// Set after `wrangler deploy` in worker/. Empty = no backend, local count only.
+const SOLVE_ENDPOINT = 'https://wispy-play-solve.luispazzanese.workers.dev/solve';
+
+const FLAG = 'flagship';
 
 interface StoredProgress {
   highestLevel: number;
@@ -42,18 +38,32 @@ function writeProgress(p: StoredProgress): void {
   }
 }
 
-function recordSolve(): number {
-  // Returns the displayed solver number. Per-device until the backend lands.
+function readLocalCount(): number {
+  return parseInt(localStorage.getItem(COUNTER_KEY) || '0', 10) || 0;
+}
+
+function writeLocalCount(n: number): void {
   try {
-    if (localStorage.getItem(SOLVED_KEY) === 'true') {
-      return parseInt(localStorage.getItem(COUNTER_KEY) || '1', 10) || 1;
-    }
-    const next = (parseInt(localStorage.getItem(COUNTER_KEY) || '0', 10) || 0) + 1;
-    localStorage.setItem(COUNTER_KEY, String(next));
+    localStorage.setItem(COUNTER_KEY, String(n));
     localStorage.setItem(SOLVED_KEY, 'true');
-    return next;
   } catch {
-    return 1;
+    /* ignore */
+  }
+}
+
+async function submitSolve(comment: string): Promise<number | null> {
+  if (!SOLVE_ENDPOINT) return null;
+  try {
+    const res = await fetch(SOLVE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ flag: FLAG, comment }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { count?: number };
+    return typeof data.count === 'number' ? data.count : null;
+  } catch {
+    return null;
   }
 }
 
@@ -61,11 +71,9 @@ export function mountTerminal(root: HTMLElement): void {
   const out = root.querySelector<HTMLElement>('[data-term-output]');
   const promptEl = root.querySelector<HTMLElement>('[data-term-prompt]');
   const inputEl = root.querySelector<HTMLInputElement>('[data-term-input]');
-  const cursorEl = root.querySelector<HTMLElement>('[data-term-cursor]');
   const liveEl = root.querySelector<HTMLElement>('[data-term-live]');
-  if (!out || !promptEl || !inputEl || !cursorEl || !liveEl) return;
+  if (!out || !promptEl || !inputEl || !liveEl) return;
 
-  // --- state -----------------------------------------------------------
   const progress = readProgress();
   const state: TerminalState = {
     cwd: [],
@@ -75,7 +83,10 @@ export function mountTerminal(root: HTMLElement): void {
     completed: progress.solved,
   };
 
-  // --- output helpers --------------------------------------------------
+  // 'comment' mode captures the next line as the solver's optional note rather
+  // than dispatching it as a command. Set by win(), cleared after submit.
+  let inputMode: 'command' | 'comment' = 'command';
+
   function print(line: string): void {
     if (line === '\x00CLEAR\x00') {
       out!.innerHTML = '';
@@ -95,12 +106,13 @@ export function mountTerminal(root: HTMLElement): void {
   }
 
   function printCommandEcho(cmd: string): void {
-    const lev = getLevel(state.level);
+    const lev = getLevel(state.level)!;
     const div = document.createElement('div');
     div.className = 'term__line term__line--echo';
     const p = document.createElement('span');
     p.className = 'term__prompt-echo';
-    p.textContent = PROMPT(lev!.id, formatPwd(state.cwd));
+    p.textContent =
+      inputMode === 'comment' ? '> ' : PROMPT(lev.id, formatPwd(state.cwd));
     div.appendChild(p);
     const c = document.createElement('span');
     c.textContent = cmd;
@@ -115,14 +127,10 @@ export function mountTerminal(root: HTMLElement): void {
   function updatePrompt(): void {
     const lev = getLevel(state.level);
     if (!lev) return;
-    promptEl!.textContent = PROMPT(lev.id, formatPwd(state.cwd));
+    promptEl!.textContent =
+      inputMode === 'comment' ? '> ' : PROMPT(lev.id, formatPwd(state.cwd));
   }
 
-  function updateLiveLine(): void {
-    liveEl!.textContent = inputEl!.value;
-  }
-
-  // --- level transitions ----------------------------------------------
   function advance(toLevel: number): void {
     const lev = getLevel(toLevel);
     if (!lev) return;
@@ -134,11 +142,7 @@ export function mountTerminal(root: HTMLElement): void {
     updatePrompt();
   }
 
-  function win(): void {
-    const n = recordSolve();
-    progress.solved = true;
-    state.completed = true;
-    writeProgress(progress);
+  function printRecruitmentFlag(n: number): void {
     print('');
     print('============================================================');
     print('');
@@ -152,7 +156,45 @@ export function mountTerminal(root: HTMLElement): void {
     print('');
   }
 
-  // --- boot ------------------------------------------------------------
+  // win() runs the unlock → comment-prompt → submit flow. The actual count
+  // and recruitment message are printed in finishWin() after the comment line.
+  function win(): void {
+    if (state.completed) {
+      // Replays don't re-fire the notification. Just print the flag again.
+      printRecruitmentFlag(readLocalCount() || 1);
+      return;
+    }
+    print('');
+    print('leave a note? (optional — name, linkedin, "hello", anything.');
+    print('press enter to skip.)');
+    inputMode = 'comment';
+    updatePrompt();
+  }
+
+  async function finishWin(comment: string): Promise<void> {
+    inputMode = 'command';
+    updatePrompt();
+
+    if (comment) {
+      print('submitting…');
+    }
+    const remoteCount = await submitSolve(comment);
+
+    let n: number;
+    if (remoteCount !== null) {
+      n = remoteCount;
+    } else {
+      n = readLocalCount() + 1;
+      print('(offline — couldn\'t reach the solve server. counted locally.)');
+    }
+    writeLocalCount(n);
+    progress.solved = true;
+    state.completed = true;
+    writeProgress(progress);
+
+    printRecruitmentFlag(n);
+  }
+
   const startLevel = getLevel(state.level) ?? LEVELS[0];
   state.level = startLevel.id;
   for (const line of startLevel.welcome) print(line);
@@ -162,7 +204,6 @@ export function mountTerminal(root: HTMLElement): void {
   }
   updatePrompt();
 
-  // --- input handling --------------------------------------------------
   async function runCommand(raw: string): Promise<void> {
     const cmd = raw.trim();
     printCommandEcho(raw);
@@ -191,23 +232,30 @@ export function mountTerminal(root: HTMLElement): void {
     }
   }
 
-  inputEl.addEventListener('input', updateLiveLine);
+  inputEl.addEventListener('input', () => {
+    liveEl!.textContent = inputEl.value;
+  });
 
   inputEl.addEventListener('keydown', async (ev) => {
     if (ev.key === 'Enter') {
       ev.preventDefault();
       const value = inputEl.value;
       inputEl.value = '';
-      updateLiveLine();
-      await runCommand(value);
+      liveEl!.textContent = '';
+      if (inputMode === 'comment') {
+        printCommandEcho(value);
+        await finishWin(value.trim());
+      } else {
+        await runCommand(value);
+      }
       scrollToBottom();
-    } else if (ev.key === 'ArrowUp') {
+    } else if (ev.key === 'ArrowUp' && inputMode === 'command') {
       ev.preventDefault();
       if (state.history.length === 0) return;
       state.historyIdx = Math.max(0, state.historyIdx - 1);
       inputEl.value = state.history[state.historyIdx] ?? '';
-      updateLiveLine();
-    } else if (ev.key === 'ArrowDown') {
+      liveEl!.textContent = inputEl.value;
+    } else if (ev.key === 'ArrowDown' && inputMode === 'command') {
       ev.preventDefault();
       if (state.historyIdx >= state.history.length - 1) {
         state.historyIdx = state.history.length;
@@ -216,14 +264,13 @@ export function mountTerminal(root: HTMLElement): void {
         state.historyIdx++;
         inputEl.value = state.history[state.historyIdx] ?? '';
       }
-      updateLiveLine();
+      liveEl!.textContent = inputEl.value;
     } else if (ev.key === 'l' && ev.ctrlKey) {
       ev.preventDefault();
       out.innerHTML = '';
     }
   });
 
-  // Click anywhere in the terminal to refocus the (visually hidden) input.
   root.addEventListener('click', () => {
     inputEl.focus();
   });

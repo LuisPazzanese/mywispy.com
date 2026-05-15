@@ -1,0 +1,13 @@
+name = "wispy-play-solve"
+main = "src/index.ts"
+compatibility_date = "2026-05-15"
+
+# After running `wrangler kv:namespace create solvers`, paste the returned id below.
+[[kv_namespaces]]
+binding = "SOLVERS"
+id = "31840ccb33254054b3786618138f498a"
+
+# Non-secret config. Secrets (RESEND_API_KEY, NOTIFY_EMAIL) go via
+# `wrangler secret put NAME` — never commit them here.
+[vars]
+ALLOWED_ORIGIN = "https://mywispy.com"
