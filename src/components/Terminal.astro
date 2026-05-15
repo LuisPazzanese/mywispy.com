@@ -54,7 +54,7 @@
     overflow: hidden;
     font-family: var(--font-mono);
     font-size: 0.9rem;
-    line-height: 1.75;
+    line-height: 1.5;
     box-shadow: 0 0 50px rgba(126, 231, 199, 0.05);
   }
 
@@ -103,13 +103,14 @@
   }
 
   .term__line {
-    min-height: 1.75em;
-    padding: 1px 0;
+    min-height: 1.5em;
   }
 
+  /* Command echoes get a visible gap above so each prompt/output block
+     reads as its own unit even when the user spams commands. */
   .term__line--echo {
     color: var(--fg-muted);
-    margin-top: 0.35em;
+    margin-top: 0.75em;
   }
 
   /* The very first echo (no preceding output) doesn't need the gap. */
