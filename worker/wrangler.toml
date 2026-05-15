@@ -11,3 +11,11 @@ id = "31840ccb33254054b3786618138f498a"
 # `wrangler secret put NAME` — never commit them here.
 [vars]
 ALLOWED_ORIGIN = "https://mywispy.com"
+
+# Persist invocation logs in the Cloudflare dashboard for post-hoc debugging.
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true
+invocation_logs = true
