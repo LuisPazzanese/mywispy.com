@@ -38,8 +38,8 @@ export const pt: Translations = {
       '(5º semestre, formatura prevista para 2028). Foco em sistemas embarcados, ' +
       'cibersegurança e programação de baixo nível. Experiência construindo sistemas ' +
       'de tempo real com FreeRTOS em microcontroladores ARM e desenvolvendo ' +
-      'automações para o mercado financeiro. Rank 2 no clube de cibersegurança do ' +
-      'Insper (Insper SEC) em competições de CTF.',
+      'automações para o mercado financeiro. Competidor de destaque no Insper SEC ' +
+      '(clube de cibersegurança do Insper) em competições de CTF.',
     intl:
       'Vivência internacional: MIT NuVu Program (EUA), CATS College Cambridge (Reino Unido), ' +
       'ELS Language Centers (Canadá).',
@@ -96,9 +96,9 @@ export const pt: Translations = {
   },
   writeups: {
     intro:
-      'Rank 2 no <span class="strong">Insper SEC</span> — clube de cibersegurança do ' +
-      'Insper — em competições internas de CTF. Foco: exploração web ' +
-      '(SQLi, XSS, SSRF), com algumas categorias de cripto e misc.',
+      'Competidor de destaque no <span class="strong">Insper SEC</span> — clube de ' +
+      'cibersegurança do Insper — em competições internas de CTF. Foco: exploração ' +
+      'web (SQLi, XSS, SSRF), com algumas categorias de cripto e misc.',
     placeholderTitle: 'Writeups em breve.',
     placeholderSub: '6-7 desafios de CTFs anteriores na fila para serem documentados.',
   },

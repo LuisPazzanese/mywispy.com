@@ -35,7 +35,7 @@ export const en: Translations = {
       'graduating 2028). Focused on embedded systems, cybersecurity, and low-level ' +
       'programming. Experienced in building real-time systems with FreeRTOS on ARM ' +
       'microcontrollers and developing automation tools for the financial industry. ' +
-      "Rank 2 in Insper's cybersecurity club (Insper SEC) CTF competitions.",
+      "Top-ranked competitor in Insper SEC (Insper's cybersecurity club) CTF competitions.",
     intl:
       'International background: MIT NuVu Program (USA), CATS College Cambridge (UK), ' +
       'ELS Language Centers (Canada).',
@@ -92,9 +92,9 @@ export const en: Translations = {
   },
   writeups: {
     intro:
-      'Rank 2 in <span class="strong">Insper SEC</span> — Insper\'s cybersecurity ' +
-      'club — across internal CTF competitions. Focus areas: web exploitation ' +
-      '(SQLi, XSS, SSRF), with some crypto and misc.',
+      'Top-ranked competitor in <span class="strong">Insper SEC</span> — ' +
+      "Insper's cybersecurity club — across internal CTF competitions. " +
+      'Focus areas: web exploitation (SQLi, XSS, SSRF), with some crypto and misc.',
     placeholderTitle: 'Writeups coming soon.',
     placeholderSub: '6-7 challenges from past CTFs queued for write-up.',
   },
