@@ -19,6 +19,8 @@ export interface Translations {
     linkLinkedin: string;
     linkEmail: string;
     linkCV: string;
+    /** Language-specific resume PDF served from /public. */
+    cvHref: string;
   };
   sections: {
     about: string;

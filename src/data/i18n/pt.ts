@@ -22,6 +22,7 @@ export const pt: Translations = {
     linkLinkedin: 'LinkedIn',
     linkEmail: 'Email',
     linkCV: 'Currículo',
+    cvHref: '/Curriculo_Luis_Pazzanese_PT.pdf',
   },
   sections: {
     about: 'sobre',
