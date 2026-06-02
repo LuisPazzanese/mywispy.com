@@ -23,15 +23,17 @@ const ogImage = new URL('/og.png', Astro.site).toString();
     <meta name="color-scheme" content="dark" />
 
     <!--
-      Pre-paint lang sync: applies the persisted language to <html lang> before
-      first paint so the static-rendered text matches what the user expects.
-      Text content swaps happen in i18n-client.ts after DOMContentLoaded.
+      Pre-paint lang sync: applies the resolved language to <html lang> before
+      first paint. Default is Portuguese (DEFAULT_LANG in i18n/index.ts), so a
+      first-time visitor with no stored choice opens in pt-BR; an explicit 'en'
+      choice keeps English. Text content swaps happen in i18n-client.ts on load.
     -->
     <script is:inline>
       (function () {
         try {
           var v = localStorage.getItem('mywispy-lang');
-          if (v === 'pt') document.documentElement.lang = 'pt-BR';
+          var lang = v === 'en' || v === 'pt' ? v : 'pt';
+          if (lang === 'pt') document.documentElement.lang = 'pt-BR';
         } catch (_) {}
       })();
     </script>

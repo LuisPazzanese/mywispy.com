@@ -19,7 +19,7 @@
 //
 // Adding a new key: extend the translations files, add data-i18n to the markup.
 
-import { translations, isLangCode, DEFAULT_LANG, type LangCode } from '../data/i18n';
+import { translations, isLangCode, DEFAULT_LANG, SSR_LANG, type LangCode } from '../data/i18n';
 
 const STORAGE_KEY = 'mywispy-lang';
 const SWITCH_CLASS = 'lang-switching';
@@ -121,9 +121,10 @@ function switchTo(lang: LangCode, animate: boolean): void {
 
 function init(): void {
   // The pre-paint inline script in <head> already set lang on <html>. We
-  // re-apply here so all [data-i18n] nodes pick up the persisted choice.
+  // re-apply here so all [data-i18n] nodes pick up the resolved choice.
+  // The server renders SSR_LANG, so only swap when the target differs.
   const initial = readStoredLang();
-  if (initial !== DEFAULT_LANG) applyLang(initial);
+  if (initial !== SSR_LANG) applyLang(initial);
 
   for (const btn of document.querySelectorAll<HTMLButtonElement>('.lang__btn')) {
     btn.addEventListener('click', () => {
